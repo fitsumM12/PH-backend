@@ -97,7 +97,7 @@ def fetch_users_api(request):
 
 # FETCH USER
 @api_view(['GET'])
-@permission_classes([IsAuthenticated])
+@permission_classes([])
 def fetch_user_api(request, pk):
     user = usersDetail.objects.get(pk=pk)
     serializer = UserDetailSerializer(user)
