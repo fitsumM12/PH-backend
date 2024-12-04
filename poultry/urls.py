@@ -23,6 +23,20 @@ urlpatterns = [
     path('chicken/chicken/<int:pk>/', fetch_one_chicken_api, name='fetch one chicken'),
     path('chicken/update/<int:pk>/', update_chicken_api, name='update chicken'),
 
+    # BACK_END API FOR REQUESTER  REQUESTER CRUD
+    path('requester/add/', add_requester_api, name='add_requester_api'),
+    path('requester/list/', fetch_requester_api, name='fetch_requester_api'),
+    path('requester/delete/<int:pk>/', delete_requester_api, name='delete_requester_api'),
+    path('requester/requester/<int:pk>/', fetch_one_requester_api, name='fetch_one_requester_api'),
+    path('requester/update/<int:pk>/', update_requester_api, name='update_requester_api'),
+    
+    # BACK_END API FOR CHICKENDISTRIBUTION CRUD
+    path('chickendistribution/add/', add_chickendistribution_api, name='add_chickendistribution_api'),
+    path('chickendistribution/list/', fetch_chickendistribution_api, name='fetch_chickendistribution_api'),
+    path('chickendistribution/delete/<int:pk>/', delete_chickendistribution_api, name='delete_chickendistribution_api'),
+    path('chickendistribution/chickendistribution/<int:pk>/', fetch_one_chickendistribution_api, name='fetch_one_chickendistribution_api'),
+    path('chickendistribution/update/<int:pk>/', update_chickendistribution_api, name='update_chickendistribution_api'),
+
     # BACKE_END API FOR INDIVIDUAL BODYWEIGHT CRUD
     path('bodyweight/add/', add_bodyweight_api, name='add_bodywieght_api'),
     path('bodyweight/list/', fetch_bodyweight_api, name='fetch_bodywieght_api'),

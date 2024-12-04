@@ -17,12 +17,16 @@ from .models import (
     IndividualVaccination,
     HatcheryRecord,
     HatcherySummary,
-    IncubationRecord
+    IncubationRecord,
+    Requester,
+    ChickenDistribution
 )
 
 admin.site.register(Breed)
 admin.site.register(House)
 admin.site.register(IndividualBird)
+admin.site.register(Requester)
+admin.site.register(ChickenDistribution)
 admin.site.register(IndividualEggProduction)
 admin.site.register(IndividualFeedWaterIntake)
 admin.site.register(IndividualBodyWeight)
@@ -38,4 +42,5 @@ admin.site.register(IndividualVaccination)
 admin.site.register(HatcheryRecord)
 admin.site.register(HatcherySummary)
 admin.site.register(IncubationRecord)
+
 

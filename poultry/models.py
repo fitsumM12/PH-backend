@@ -40,7 +40,6 @@ class House(models.Model):
     def __str__(self):
         return f"House {self.house_number}, Pen {self.pen_number}"
 
-
 # INDIVIDUAL BIRD
 class IndividualBird(models.Model):
     id = models.AutoField(primary_key=True, editable=False)
@@ -67,6 +66,49 @@ class IndividualBird(models.Model):
     def __str__(self):
         return f"Bird {self.bird_id}"
 
+#  REQUESTER 
+class Requester(models.Model):
+    id = models.AutoField(primary_key=True, editable=False)
+    requester_id = models.CharField(max_length=200, null=True, blank=True)
+    requester_name = models.CharField(max_length=200, help_text="Name of the recipient")
+    requester_region = models.CharField(max_length=200)
+    requester_district = models.CharField(max_length=200)
+    requester_city = models.CharField(max_length=200)
+    requester_phone_number = models.CharField(max_length=15)
+    requester_male_count = models.PositiveIntegerField(default=0)
+    requester_female_count = models.PositiveIntegerField(default=0)
+    def save(self, *args, **kwargs):
+            if not self.requester_id:
+                existing_ids = list(IndividualBird.objects.values_list('id', flat=True))
+                new_id = 1
+                while new_id in existing_ids:
+                    new_id += 1
+                self.requester = new_id  
+            super(Requester, self).save(*args, **kwargs)
+    def __str__(self):
+        return f"Requester {self.requester_id}"
+
+# CHICKEN DISTRIBUTION
+class ChickenDistribution(models.Model):
+    id = models.AutoField(primary_key=True, editable=False)
+    chicken_distribution_id = models.CharField(max_length=200, null=True, blank=True)
+    breed = models.ForeignKey(Breed, on_delete=models.CASCADE)
+    date_of_hatch = models.DateField()
+    number_of_eggs_incubated = models.PositiveIntegerField(default=0)
+    healthy_hatchlings_count = models.PositiveIntegerField(default=0) 
+    requester = models.ForeignKey(Requester, on_delete = models.CASCADE)
+    quantity_sold = models.PositiveIntegerField()
+    distributor_name = models.ForeignKey(usersDetail, on_delete=models.CASCADE)
+    def save(self, *args, **kwargs):
+            if not self.chicken_distribution_id:
+                existing_ids = list(ChickenDistribution.objects.values_list('id', flat=True))
+                new_id = 1
+                while new_id in existing_ids:
+                    new_id += 1
+                self.chicken_distribution_id = new_id  
+            super(ChickenDistribution, self).save(*args, **kwargs)
+    def __str__(self):
+        return f"Distribution {self.chicken_distribution_id}"
 
 # INDIVIDUAL DEATH
 class IndividualDeath(models.Model):

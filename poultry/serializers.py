@@ -16,6 +16,15 @@ class IndividualBirdSerializer(serializers.ModelSerializer):
         model = IndividualBird
         fields = '__all__'
 
+class RequesterSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Requester
+        fields = '__all__'
+class ChickenDistributionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ChickenDistribution
+        fields = '__all__'
+
 class IndividualFeedWaterIntakeSerializer(serializers.ModelSerializer):
     class Meta:
         model = IndividualFeedWaterIntake

@@ -159,6 +159,114 @@ def update_chicken_api(request, pk):
     return Response(serializer.errors, status=400)
 
 
+
+
+# REQUETER BACKEND APIS
+# ADD NEW REQUESTER
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def add_requester_api(request):
+    serializer = RequesterSerializer(data=request.data)
+    if serializer.is_valid():
+        requester = serializer.save()
+        response_data = {
+            'requester_id': requester.requester_id,  
+            **serializer.data       
+        }
+        return Response(response_data, status=201)
+    return Response(serializer.errors, status=400)
+# FETCH ALL REQUESTER
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def fetch_requester_api(request):
+    requesters = Requester.objects.all()
+    serializer = RequesterSerializer(requesters, many=True)
+    return Response(serializer.data)
+# DELETE REQUESTER
+@api_view(['DELETE'])
+@permission_classes([IsAuthenticated])
+def delete_requester_api(request, pk):
+    requester = Requester.objects.get(pk=pk)
+    requester.delete()
+    return Response(status=204)
+# FETCH SINGLE REQUESTER
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def fetch_one_requester_api(request, pk):
+    requester = Requester.objects.get(pk=pk)
+    serializer = RequesterSerializer(requester)
+    return Response(serializer.data)
+# UPDATE SINGLE REQUESTER
+@api_view(['PUT'])
+@permission_classes([IsAuthenticated])
+def update_requester_api(request, pk):
+    requester = Requester.objects.get(pk=pk)
+    serializer = RequesterSerializer(requester, data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data)
+    return Response(serializer.errors, status=400)
+
+
+
+
+
+
+
+
+# ChickenDistribution BACKEND APIS
+# ADD NEW ChickenDistribution
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def add_chickendistribution_api(request):
+    serializer = ChickenDistributionSerializer(data=request.data)
+    if serializer.is_valid():
+        chickendistribution = serializer.save()
+        response_data = {
+           'chicken_distribution_id': chickendistribution.chicken_distribution_id,  
+            **serializer.data       
+        }
+        return Response(response_data, status=201)
+    return Response(serializer.errors, status=400)
+# FETCH ALL CHICKEN
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def fetch_chickendistribution_api(request):
+    chickendistributions = ChickenDistribution.objects.all()
+    serializer = ChickenDistributionSerializer(chickendistributions, many=True)
+    return Response(serializer.data)
+# DELETE CHICKEN
+@api_view(['DELETE'])
+@permission_classes([IsAuthenticated])
+def delete_chickendistribution_api(request, pk):
+    chickendistribution = ChickenDistribution.objects.get(pk=pk)
+    chickendistribution.delete()
+    return Response(status=204)
+# FETCH SINGLE CHICKEN
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def fetch_one_chickendistribution_api(request, pk):
+    chickendistribution = ChickenDistribution.objects.get(pk=pk)
+    serializer = ChickenDistributionSerializer(chickendistribution)
+    return Response(serializer.data)
+# UPDATE SINGLE CHICKEN
+@api_view(['PUT'])
+@permission_classes([IsAuthenticated])
+def update_chickendistribution_api(request, pk):
+    chickendistribution = ChickenDistribution.objects.get(pk=pk)
+    serializer = ChickenDistributionSerializer(chickendistribution, data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data)
+    return Response(serializer.errors, status=400)
+
+
+
+
+
+
+
+
 # BODYWEIGHT BACKEND APIS
 # ADD NEW BODYWEIGHT
 @api_view(['POST'])
