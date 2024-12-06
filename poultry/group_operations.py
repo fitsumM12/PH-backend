@@ -40,3 +40,4 @@ def validate_operation(chicken_group_id, operation_type, male_count, female_coun
     validation_result = {"status": True, "available_male": available_male, "available_female": available_female}
     print(validation_result)  
     return validation_result
+# here are
