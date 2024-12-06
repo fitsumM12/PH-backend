@@ -24,7 +24,7 @@ from rest_framework.decorators import api_view
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth import authenticate
 from django.db.models.functions import ExtractMonth, ExtractYear
-
+from .group_operations import validate_operation
 
 # BREED BACKEND APIS
 # ADD NEW BREED
@@ -601,14 +601,43 @@ def update_group_egg_api(request, pk):
 
 # GROUP DEATH BACKEND APIS
 # ADD NEW EGG
+# @api_view(['POST'])
+# @permission_classes([IsAuthenticated])
+# def add_group_death_api(request):
+#     serializer = GroupDeathSerializer(data=request.data)
+#     if serializer.is_valid():
+#         serializer.save()
+#         return Response(serializer.data, status=201)
+#     return Response(serializer.errors, status=400)
+
+
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def add_group_death_api(request):
-    serializer = GroupDeathSerializer(data=request.data)
+    # Get data from the request
+    data = request.data
+    chicken_group = data.get('chicken_group')
+    male_count = data.get('male_count', 0)  # Default to 0 if not provided
+    female_count = data.get('female_count', 0)  # Default to 0 if not provided
+
+    # Validate the operation using the validate_operation function
+    validation = validate_operation(chicken_group, "mortality", male_count, female_count)
+    if not validation["status"]:  # If validation fails
+        return Response(
+            {"error": validation["message"], "available": validation},
+            status=400
+        )
+
+    # If validation passes, save the mortality record
+    serializer = GroupDeathSerializer(data=data)
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data, status=201)
+    
+    # Return validation errors if the serializer fails
     return Response(serializer.errors, status=400)
+
+
 # FETCH ALL DEATH
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
@@ -647,14 +676,43 @@ def update_group_death_api(request, pk):
 
 # GROUP CULLING BACKEND APIS
 # ADD NEW CULLING
+# @api_view(['POST'])
+# @permission_classes([IsAuthenticated])
+# def add_group_culling_api(request):
+#     serializer = GroupCullingSerializer(data=request.data)
+#     if serializer.is_valid():
+#         serializer.save()
+#         return Response(serializer.data, status=201)
+#     return Response(serializer.errors, status=400)
+
+
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def add_group_culling_api(request):
-    serializer = GroupCullingSerializer(data=request.data)
+    # Get data from the request
+    data = request.data
+    chicken_group = data.get('chicken_group')
+    male_count = data.get('male_count', 0)  # Default to 0 if not provided
+    female_count = data.get('female_count', 0)  # Default to 0 if not provided
+
+    # Validate the operation using the validate_operation function
+    validation = validate_operation(chicken_group, "culling", male_count, female_count)
+    if not validation["status"]:  # If validation fails
+        return Response(
+            {"error": validation["message"], "available": validation},
+            status=400
+        )
+
+    # If validation passes, save the culling record
+    serializer = GroupCullingSerializer(data=data)
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data, status=201)
+    
+    # Return validation errors if the serializer fails
     return Response(serializer.errors, status=400)
+
+
 
 # FETCH ALL CULLING
 @api_view(['GET'])
@@ -694,15 +752,42 @@ def update_group_culling_api(request, pk):
 
 # GROUP REPLACEMENT BACKEND APIS
 # ADD NEW REPLACEMENT
+# @api_view(['POST'])
+# @permission_classes([IsAuthenticated])
+# def add_group_replacement_api(request):
+#     serializer = GroupReplacementSerializer(data=request.data)
+#     if serializer.is_valid():
+#         serializer.save()
+#         return Response(serializer.data, status=201)
+#     return Response(serializer.errors, status=400)
+
+
+
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def add_group_replacement_api(request):
-    serializer = GroupReplacementSerializer(data=request.data)
+    # Get data from the request
+    data = request.data
+    chicken_group = data.get('chicken_group')
+    male_count = data.get('male_count', 0)  # Default to 0 if not provided
+    female_count = data.get('female_count', 0)  # Default to 0 if not provided
+
+    # Validate the operation using the validate_operation function
+    validation = validate_operation(chicken_group, "replacement", male_count, female_count)
+    if not validation["status"]:  # If validation fails
+        return Response(
+            {"error": validation["message"], "available": validation},
+            status=400
+        )
+
+    # If validation passes, save the replacement record
+    serializer = GroupReplacementSerializer(data=data)
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data, status=201)
+    
+    # Return validation errors if the serializer fails
     return Response(serializer.errors, status=400)
-
 # FETCH ALL REPLACEMENT
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])

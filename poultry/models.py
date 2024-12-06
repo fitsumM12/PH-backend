@@ -268,6 +268,12 @@ class GroupReplacement(models.Model):
     def __str__(self):
         return f"Replacement Event for Group {self.id} on {self.date}"
 
+     
+
+
+
+
+
 
 # GROUP VACCINATION
 class GroupVaccination(models.Model):
