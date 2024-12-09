@@ -160,7 +160,6 @@ def update_chicken_api(request, pk):
 
 
 
-
 # REQUETER BACKEND APIS
 # ADD NEW REQUESTER
 @api_view(['POST'])
