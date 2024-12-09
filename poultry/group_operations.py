@@ -58,7 +58,6 @@ def validate_operation(chicken_group_id, operation_type, male_count, female_coun
             }
             print(validation_result)  # Log validation result to the console
             return validation_result
-
     # Validate counts for culling and mortality
     if operation_type in ["culling", "mortality"]:
         if male_count > available_male or female_count > available_female:

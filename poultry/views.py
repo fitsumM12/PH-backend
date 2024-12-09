@@ -611,32 +611,52 @@ def update_group_egg_api(request, pk):
 #     return Response(serializer.errors, status=400)
 
 
+# @api_view(['POST'])
+# @permission_classes([IsAuthenticated])
+# def add_group_death_api(request):
+#     # Get data from the request
+#     data = request.data
+#     chicken_group = data.get('chicken_group')
+#     male_count = data.get('male_count', 0)  # Default to 0 if not provided
+#     female_count = data.get('female_count', 0)  # Default to 0 if not provided
+
+#     # Validate the operation using the validate_operation function
+#     validation = validate_operation(chicken_group, "mortality", male_count, female_count)
+#     if not validation["status"]:  # If validation fails
+#         return Response(
+#             {"error": validation["message"], "available": validation},
+#             status=400
+#         )
+
+#     # If validation passes, save the mortality record
+#     serializer = GroupDeathSerializer(data=data)
+#     if serializer.is_valid():
+#         serializer.save()
+#         return Response(serializer.data, status=201)
+    
+#     # Return validation errors if the serializer fails
+#     return Response(serializer.errors, status=400)
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def add_group_death_api(request):
-    # Get data from the request
     data = request.data
     chicken_group = data.get('chicken_group')
-    male_count = data.get('male_count', 0)  # Default to 0 if not provided
-    female_count = data.get('female_count', 0)  # Default to 0 if not provided
+    male_count = data.get('male_count', 0)
+    female_count = data.get('female_count', 0)
 
-    # Validate the operation using the validate_operation function
     validation = validate_operation(chicken_group, "mortality", male_count, female_count)
-    if not validation["status"]:  # If validation fails
+    if not validation["status"]:
         return Response(
-            {"error": validation["message"], "available": validation},
+            {"message": validation["message"], "available": validation},
             status=400
         )
 
-    # If validation passes, save the mortality record
     serializer = GroupDeathSerializer(data=data)
     if serializer.is_valid():
         serializer.save()
-        return Response(serializer.data, status=201)
+        return Response({"message": "Record added successfully", "data": serializer.data}, status=201)
     
-    # Return validation errors if the serializer fails
-    return Response(serializer.errors, status=400)
-
+    return Response({"message": "Validation errors", "errors": serializer.errors}, status=400)
 
 # FETCH ALL DEATH
 @api_view(['GET'])
