@@ -167,6 +167,7 @@ urlpatterns = [
     path('kpi/fetch_feed_intake_refusal_per_individual_chicken_api/', fetch_feed_intake_refusal_per_individual_chicken_api, name='fetch_feed_intake_refusal_per_individual_chicken_api'),
     path('kpi/fetch_body_weight_per_individual_chicken_api/', fetch_body_weight_per_individual_chicken_api, name='fetch_body_weight_per_individual_chicken_api'),
     path('kpi/fetch_vaccination_count_per_individual_chicken_api/', fetch_vaccination_count_per_individual_chicken_api, name='fetch_vaccination_count_per_individual_chicken_api'),
+    path('kpi/fetch_individual_death_count/', fetch_individual_death_count, name='fetch_individual_death_count'),
     path('kpi/count_individual_chickens_api/', count_individual_chickens_api, name='count_individual_chickens_api'),
 
 ]

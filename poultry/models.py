@@ -165,7 +165,7 @@ class IndividualEggProduction(models.Model):
     def __str__(self):
         return f"Egg production for Bird {self.bird.bird_id} on {self.date}"
 
-
+# 
 # INDIVIDUAL FEED WATER INTAKE
 class IndividualFeedWaterIntake(models.Model):
     id = models.AutoField(primary_key=True, editable=False)
@@ -267,12 +267,6 @@ class GroupReplacement(models.Model):
 
     def __str__(self):
         return f"Replacement Event for Group {self.id} on {self.date}"
-
-     
-
-
-
-
 
 
 # GROUP VACCINATION

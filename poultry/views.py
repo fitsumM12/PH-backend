@@ -1466,6 +1466,23 @@ def fetch_vaccination_count_per_group_api(request):
 
     return Response(vaccination_data)
 
+def fetch_individual_death_count(request):
+    try:
+        # Count all individual death records
+        death_count = IndividualDeath.objects.count()
+        
+        response_data = {
+            "status": "success",
+            "individual_death_count": death_count,
+        }
+    except Exception as e:
+        response_data = {
+            "status": "error",
+            "message": str(e),
+        }
+    
+    return JsonResponse(response_data)
+
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def count_chicken_groups_api(request):
@@ -1625,6 +1642,38 @@ def fetch_vaccination_count_per_individual_chicken_api(request):
             })
 
     return Response(vaccination_data)
+    # Monthly Death Count
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def fetch_death_count_per_individual_chicken_api(request):
+    chickens = IndividualBird.objects.all()
+    death_data = []
+
+    for chicken in chickens:
+        total_deaths = (
+            IndividualDeath.objects
+            .filter(bird=chicken)
+            .values(year=ExtractYear('date'), month=ExtractMonth('date'))
+            .annotate(total_deaths=Count('id'))  # Count the number of deaths
+            .order_by('year', 'month')
+        )
+
+        house = chicken.house  
+        house_number = house.house_number if house else "N/A"
+        pen_number = house.pen_number if house else "N/A"
+
+        for record in total_deaths:
+            death_data.append({
+                "id": chicken.id,
+                "chicken_id": chicken.bird_id,
+                "house_number": house_number, 
+                "pen_number": pen_number,     
+                "year": record['year'],
+                "month": record['month'],
+                "total_deaths": record['total_deaths'] or 0  # Use the total_deaths key
+            })
+
+    return Response(death_data)
 
 # Count Individual Chickens
 @api_view(['GET'])
