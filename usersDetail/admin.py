@@ -2,6 +2,7 @@ from django.contrib import admin
 from django import forms
 from django.contrib.auth.hashers import make_password
 from .models import usersDetail
+from .models import DashboardProfile
 
 class UsersDetailForm(forms.ModelForm):
     class Meta:
@@ -24,3 +25,5 @@ class UsersDetailAdmin(admin.ModelAdmin):
     form = UsersDetailForm
 
 admin.site.register(usersDetail, UsersDetailAdmin)
+admin.site.register(DashboardProfile)
+

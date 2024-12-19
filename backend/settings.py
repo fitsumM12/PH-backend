@@ -21,6 +21,7 @@ CORS_ORIGIN_ALLOW_ALL = True
 # ]
 
 # MEDIA URL
+MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_ROOT_RAW = os.path.join(MEDIA_ROOT, 'raw')
 MEDIA_ROOT_CAM = os.path.join(MEDIA_ROOT, 'cam')
@@ -51,6 +52,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
 ]
 ROOT_URLCONF = 'backend.urls'
 AUTH_USER_MODEL = 'usersDetail.usersDetail'
