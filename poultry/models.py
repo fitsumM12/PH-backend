@@ -228,7 +228,7 @@ class ChickenGroup(models.Model):
             while new_id in existing_ids:
                 new_id += 1
             self.id = new_id  
-        super(ChickenGroup, self).save(*args, **kwargs)
+        super(ChickenGroup, self).save(*args, **GroupEggProductionkwargs)
 
     def __str__(self):
         return f"Chicken Group {self.id} (House: {self.house.house_number}, Breed: {self.breed.name})"

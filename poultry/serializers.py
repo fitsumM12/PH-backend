@@ -45,11 +45,6 @@ class GroupBodyWeightSerializer(serializers.ModelSerializer):
         model = GroupBodyWeight
         fields = '__all__'
 
-class GroupEggProductionSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = GroupEggProduction
-        fields = '__all__'
-
 class GroupFeedWaterIntakeSerializer(serializers.ModelSerializer):
     class Meta:
         model = GroupFeedWaterIntake
@@ -105,3 +100,33 @@ class HatcherySummarySerializer(serializers.ModelSerializer):
     class Meta:
         model = HatcherySummary  
         fields = '__all__'
+
+
+class GroupEggProductionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = GroupEggProduction
+        fields = '__all__'
+
+
+
+# New serializer for group egg production
+class NewChickenGroupSerializer(serializers.ModelSerializer):
+    house = serializers.CharField(source='house.house_number')  # Assuming house has a house_number field
+
+    class Meta:
+        model = ChickenGroup
+        fields = ['id', 'house']  # Add other fields if necessary
+
+
+
+
+
+
+
+class NewGroupEggProductionSerializer(serializers.ModelSerializer):
+    chicken_group = NewChickenGroupSerializer()  # Nest the new ChickenGroupSerializer
+
+    class Meta:
+        model = GroupEggProduction
+        fields = '__all__'
+

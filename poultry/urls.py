@@ -82,6 +82,8 @@ urlpatterns = [
     # BACK_END API FOR GROUP EGG PRODUCTION
     path('group_egg/add/', add_group_egg_api, name='add group_egg api'),
     path('group_egg/list/', fetch_group_egg_api, name='fetch group_eggg api'),
+    # For Dashboard Purpose
+    path('new_group_egg/list/', fetch_new_group_egg_api, name='fetch_new_group_egg_api'),
     path('group_egg/delete/<int:pk>/', delete_group_egg_api, name='delete group_egg api'),
     path('group_egg/group_egg/<int:pk>/', fetch_one_group_egg_api, name='fetch one group_egg'),
     path('group_egg/update/<int:pk>/', update_group_egg_api, name='update group_egg'),

@@ -208,11 +208,6 @@ def update_requester_api(request, pk):
 
 
 
-
-
-
-
-
 # ChickenDistribution BACKEND APIS
 # ADD NEW ChickenDistribution
 @api_view(['POST'])
@@ -258,11 +253,6 @@ def update_chickendistribution_api(request, pk):
         serializer.save()
         return Response(serializer.data)
     return Response(serializer.errors, status=400)
-
-
-
-
-
 
 
 
@@ -541,6 +531,15 @@ def fetch_group_egg_api(request):
     eggs = GroupEggProduction.objects.all()
     serializer =GroupEggProductionSerializer(eggs, many=True)
     return Response(serializer.data)
+
+# For Dashboard Purpose
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def fetch_new_group_egg_api(request):
+    eggs = GroupEggProduction.objects.all()
+    serializer = NewGroupEggProductionSerializer(eggs, many=True)
+    return Response(serializer.data)
+
 # DELETE EGG
 @api_view(['DELETE'])
 @permission_classes([IsAuthenticated])
@@ -566,30 +565,6 @@ def update_group_egg_api(request, pk):
         serializer.save()
         return Response(serializer.data)
     return Response(serializer.errors, status=400)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -691,44 +666,26 @@ def update_group_death_api(request, pk):
     return Response(serializer.errors, status=400)
 
 
-
-
-# GROUP CULLING BACKEND APIS
-# ADD NEW CULLING
-# @api_view(['POST'])
-# @permission_classes([IsAuthenticated])
-# def add_group_culling_api(request):
-#     serializer = GroupCullingSerializer(data=request.data)
-#     if serializer.is_valid():
-#         serializer.save()
-#         return Response(serializer.data, status=201)
-#     return Response(serializer.errors, status=400)
-
-
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def add_group_culling_api(request):
-    # Get data from the request
     data = request.data
     chicken_group = data.get('chicken_group')
-    male_count = data.get('male_count', 0)  # Default to 0 if not provided
-    female_count = data.get('female_count', 0)  # Default to 0 if not provided
+    male_count = data.get('male_count', 0)  
+    female_count = data.get('female_count', 0)   
 
-    # Validate the operation using the validate_operation function
     validation = validate_operation(chicken_group, "culling", male_count, female_count)
-    if not validation["status"]:  # If validation fails
+    if not validation["status"]:  
         return Response(
             {"error": validation["message"], "available": validation},
             status=400
         )
 
-    # If validation passes, save the culling record
     serializer = GroupCullingSerializer(data=data)
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data, status=201)
     
-    # Return validation errors if the serializer fails
     return Response(serializer.errors, status=400)
 
 
@@ -769,37 +726,25 @@ def update_group_culling_api(request, pk):
     return Response(serializer.errors, status=400)
 
 
-# GROUP REPLACEMENT BACKEND APIS
-# ADD NEW REPLACEMENT
-# @api_view(['POST'])
-# @permission_classes([IsAuthenticated])
-# def add_group_replacement_api(request):
-#     serializer = GroupReplacementSerializer(data=request.data)
-#     if serializer.is_valid():
-#         serializer.save()
-#         return Response(serializer.data, status=201)
-#     return Response(serializer.errors, status=400)
-
 
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def add_group_replacement_api(request):
-    # Get data from the request
     data = request.data
     chicken_group = data.get('chicken_group')
-    male_count = data.get('male_count', 0)  # Default to 0 if not provided
-    female_count = data.get('female_count', 0)  # Default to 0 if not provided
+    male_count = data.get('male_count', 0)   
+    female_count = data.get('female_count', 0)   
 
-    # Validate the operation using the validate_operation function
+  
     validation = validate_operation(chicken_group, "replacement", male_count, female_count)
-    if not validation["status"]:  # If validation fails
+    if not validation["status"]:   
         return Response(
             {"error": validation["message"], "available": validation},
             status=400
         )
 
-    # If validation passes, save the replacement record
+  
     serializer = GroupReplacementSerializer(data=data)
     if serializer.is_valid():
         serializer.save()
