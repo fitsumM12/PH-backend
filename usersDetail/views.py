@@ -200,6 +200,8 @@ def refresh_token(request):
         return JsonResponse({'error': 'Refresh token not provided'}, status=400)
 
 # FOR UPDATING DASHBOARD PROFILE
+
+
 from rest_framework import generics, permissions
 from usersDetail.models import DashboardProfile
 from usersDetail.serializers import DashboardProfileSerializer
@@ -207,21 +209,23 @@ from usersDetail.serializers import DashboardProfileSerializer
 class DashboardProfileUpdateView(generics.RetrieveUpdateAPIView):
     serializer_class = DashboardProfileSerializer
     permission_classes = [permissions.AllowAny]   
+
     def get_queryset(self):
-         return DashboardProfile.objects.all()
+        return DashboardProfile.objects.all()
 
     def get_object(self):
         try:
-             return DashboardProfile.objects.latest('updated_at')
+            return DashboardProfile.objects.latest('updated_at')
         except DashboardProfile.DoesNotExist:
-             return DashboardProfile.objects.create(
+            return DashboardProfile.objects.create(
                 bio='Welcome, Guest!',
-                dashboard_image='/path/to/default/dashboard_image.png',
-                landingpage_image='/path/to/default/landingpage_image.png',
+                dashboard_image='dashboard_profiles/default_dashboard_image.png',
+                landingpage_image='landingpage_profiles/default_landingpage_image.png',
             )
 
     def get_serializer_context(self):
-         return {'request': self.request}
+        return {'request': self.request}
+
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
