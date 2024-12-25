@@ -1632,18 +1632,6 @@ def count_individual_chickens_api(request):
 
 
 # for dashboard purpose
-# @api_view(['GET'])
-# def fetch_individual_egg_dashboard_api(request):
-#     try:
-#         all_eggs = IndividualEggProduction.objects.select_related(
-#             'bird', 'bird__breed'
-#         ).order_by('-egg_count')
-#         serializer = IndividualEggProductionDashboardSerializer(all_eggs, many=True)
-#         return Response(serializer.data, status=200)
-#     except Exception as e:
-#         return Response({'error': str(e)}, status=500)
-
-
 @api_view(['GET'])
 def fetch_individual_egg_dashboard_api(request):
     try:

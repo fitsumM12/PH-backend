@@ -221,14 +221,19 @@ class ChickenGroup(models.Model):
     total_bird_count = models.IntegerField()
 
     def save(self, *args, **kwargs):
+        # Calculate total bird count before saving
         self.total_bird_count = self.male_count + self.female_count
+        
+        # Ensure a unique ID is assigned
         if not self.id:
             existing_ids = list(ChickenGroup.objects.values_list('id', flat=True))
             new_id = 1
             while new_id in existing_ids:
                 new_id += 1
             self.id = new_id  
-        super(ChickenGroup, self).save(*args, **GroupEggProductionkwargs)
+
+        # Call the superclass's save method with correct arguments
+        super(ChickenGroup, self).save(*args, **kwargs)
 
     def __str__(self):
         return f"Chicken Group {self.id} (House: {self.house.house_number}, Breed: {self.breed.name})"

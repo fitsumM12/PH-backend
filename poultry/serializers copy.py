@@ -1,6 +1,5 @@
 from rest_framework import serializers
 from .models import *
-# from .models import IndividualEggProduction
 
 class BreedSerializer(serializers.ModelSerializer):
     class Meta:
@@ -44,6 +43,11 @@ class IndividualBodyweightSerializer(serializers.ModelSerializer):
 class GroupBodyWeightSerializer(serializers.ModelSerializer):
     class Meta:
         model = GroupBodyWeight
+        fields = '__all__'
+
+class GroupEggProductionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = GroupEggProduction
         fields = '__all__'
 
 class GroupFeedWaterIntakeSerializer(serializers.ModelSerializer):
@@ -101,51 +105,3 @@ class HatcherySummarySerializer(serializers.ModelSerializer):
     class Meta:
         model = HatcherySummary  
         fields = '__all__'
-
-
-class GroupEggProductionSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = GroupEggProduction
-        fields = '__all__'
-
-
-
-# New serializer for group egg production for dashboard purpose 
-class NewChickenGroupSerializer(serializers.ModelSerializer):
-    house = serializers.CharField(source='house.house_number')  
-
-    class Meta:
-        model = ChickenGroup
-        fields = ['id', 'house']   
-
-
-
-class NewGroupEggProductionSerializer(serializers.ModelSerializer):
-    chicken_group = NewChickenGroupSerializer()   
-
-    class Meta:
-        model = GroupEggProduction
-        fields = '__all__'
-
-# New serializer for individual egg production for dashboard purpose 
-
-
-class BreedSerializerForDashboard(serializers.ModelSerializer):
-    class Meta:
-        model = Breed
-        fields = '__all__'   
-
-class IndividualBirdSerializerForDashboard(serializers.ModelSerializer):
-    breed = BreedSerializerForDashboard()  
-
-    class Meta:
-        model = IndividualBird
-        fields = '__all__'  
-
-class IndividualEggProductionDashboardSerializer(serializers.ModelSerializer):
-    bird = IndividualBirdSerializerForDashboard()  
-
-    class Meta:
-        model = IndividualEggProduction
-        fields = '__all__'  
-

@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import *
-
+# from .views import fetch_individual_egg_dashboard_api
 urlpatterns = [ 
     # BACK_END API FOR BREED CRUD
     path('breed/add/', add_breed_api, name='add_breed_api'),
@@ -55,6 +55,7 @@ urlpatterns = [
     path('egg/add/', add_egg_api, name='add egg api'),
     path('egg/list/', fetch_egg_api, name='fetch eggg api'),
     path('egg/delete/<int:pk>/', delete_egg_api, name='delete egg api'),
+    path('individual_egg_dashboard/list/', fetch_individual_egg_dashboard_api, name='fetch_individual_egg_dashboard_api'),
     path('egg/egg/<int:pk>/', fetch_one_egg_api, name='fetch one egg'),
     path('egg/update/<int:pk>/', update_egg_api, name='update egg'),
     
@@ -83,7 +84,7 @@ urlpatterns = [
     path('group_egg/add/', add_group_egg_api, name='add group_egg api'),
     path('group_egg/list/', fetch_group_egg_api, name='fetch group_eggg api'),
     # For Dashboard Purpose
-    path('new_group_egg/list/', fetch_new_group_egg_api, name='fetch_new_group_egg_api'),
+    path('group_egg_dashboard/list/', fetch_new_group_egg_api, name='fetch_new_group_egg_api'),
     path('group_egg/delete/<int:pk>/', delete_group_egg_api, name='delete group_egg api'),
     path('group_egg/group_egg/<int:pk>/', fetch_one_group_egg_api, name='fetch one group_egg'),
     path('group_egg/update/<int:pk>/', update_group_egg_api, name='update group_egg'),
