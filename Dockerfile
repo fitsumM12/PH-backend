@@ -6,6 +6,9 @@ ENV PYTHONUNBUFFERED 1
 
 WORKDIR /app
 
+# Upgrade pip to the latest version
+RUN python -m pip install --upgrade pip
+
 # Copy the requirements file
 COPY requirements.txt /app/
 
